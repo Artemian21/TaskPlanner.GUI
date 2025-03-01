@@ -1,7 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using TaskPlanner.DataAccess;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<UnitOfWork>();
+builder.Services.AddDbContext<TaskPlannerDBContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TaskPlannerDBContext"));
+});
 
 var app = builder.Build();
 

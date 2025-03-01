@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TaskPlanner.DataAccess.Entities;
 using TaskPlanner.DataAccess.Repositories;
 
 namespace TaskPlanner.DataAccess
@@ -10,15 +11,15 @@ namespace TaskPlanner.DataAccess
     public class UnitOfWork : IDisposable
     {
         private TaskPlannerDBContext context;
-        private ProjectRepository projectRepository;
-        private TaskRepository taskRepository;
+        private IProjectRepository projectRepository;
+        private ITaskRepository taskRepository;
 
         public UnitOfWork(TaskPlannerDBContext context)
         {
             this.context = context;
         }
 
-        public ProjectRepository ProjectRepository
+        public IProjectRepository ProjectRepository
         {
             get
             {
@@ -30,7 +31,7 @@ namespace TaskPlanner.DataAccess
             }
         }
 
-        public TaskRepository TaskRepository
+        public ITaskRepository TaskRepository
         {
             get
             {
@@ -42,9 +43,9 @@ namespace TaskPlanner.DataAccess
             }
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
         private bool disposed = false;

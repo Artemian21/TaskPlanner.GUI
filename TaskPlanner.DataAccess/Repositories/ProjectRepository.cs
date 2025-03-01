@@ -1,44 +1,87 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaskPlanner.DataAccess.Entities;
+using TaskPlanner.Domain.Models;
 
 namespace TaskPlanner.DataAccess.Repositories
 {
-    public class ProjectRepository : IRepozitory<ProjectEntity>
+    public class ProjectRepository : IProjectRepository
     {
-        private TaskPlannerDBContext context;
+        private readonly TaskPlannerDBContext context;
 
         public ProjectRepository(TaskPlannerDBContext context)
         {
             this.context = context;
         }
 
-        public Task<ProjectEntity> AddAsync(ProjectEntity entity)
+        public async Task<Project> AddAsync(Project project)
         {
-            throw new NotImplementedException();
+            var projectEntity = new ProjectEntity
+            {
+                Id = project.Id,
+                Name = project.Name,
+                Description = project.Description,
+                Deadline = project.Deadline,
+                CreatedAt = DateTime.Now
+            };
+
+            await context.Projects.AddAsync(projectEntity);
+            await context.SaveChangesAsync();
+
+            return Project.Create(projectEntity.Id, projectEntity.Name, projectEntity.Description, projectEntity.Deadline).project;
         }
 
-        public Task<ProjectEntity> DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            await context.Projects.Where(p => p.Id == id).ExecuteDeleteAsync();
+            return true;
         }
 
-        public Task<IEnumerable<ProjectEntity>> GetAllAsync()
+        public async Task<IEnumerable<Project>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var projectEntities = await context.Projects.AsNoTracking().ToListAsync();
+
+            var projects = projectEntities.Select(p => Project.Create(p.Id, p.Name, p.Description, p.Deadline).project)
+                .Where(project => project != null)
+                .ToList();
+
+            return projects;
         }
 
-        public Task<ProjectEntity> GetByIdAsync(Guid id)
+        public async Task<Project> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var projectEntity = await context.Projects.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+
+            if (projectEntity == null)
+            {
+                return null;
+            }
+
+            return Project.Create(projectEntity.Id, projectEntity.Name, projectEntity.Description, projectEntity.Deadline).project;
         }
 
-        public Task<ProjectEntity> UpdateAsync(ProjectEntity entity)
+        public async Task<Project> UpdateAsync(Guid id, string name, string decription, DateTime deadline)
         {
-            throw new NotImplementedException();
+            await context.Projects.Where(p => p.Id == id)
+                .ExecuteUpdateAsync(s => s.
+                SetProperty(p => p.Name, p => name)
+                .SetProperty(p => p.Description, p => decription)
+                .SetProperty(p => p.Deadline, p => deadline)
+                );
+
+            var updatedProject = await context.Projects.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+
+            if (updatedProject == null)
+            {
+                return null;
+            }
+
+            return Project.Create(updatedProject.Id, updatedProject.Name, updatedProject.Description, updatedProject.Deadline).project;
         }
     }
 }

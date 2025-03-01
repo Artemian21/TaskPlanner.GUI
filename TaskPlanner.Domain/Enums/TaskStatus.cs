@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TaskPlanner.DataAccess.Enums
+namespace TaskPlanner.Domain.Enums
 {
-    public enum PriorityStatus
+    public enum TaskStatus
     {
-        Low,
-        Medium,
-        High
+        Not_started,
+        In_progress,
+        Completed
     }
 }

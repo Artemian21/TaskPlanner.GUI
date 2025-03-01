@@ -12,7 +12,7 @@ namespace TaskPlanner.DataAccess.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime Deadline { get; set; }
+        public DateTime? Deadline { get; set; }
         public List<TaskEntity> Tasks { get; set; }
 
     }
