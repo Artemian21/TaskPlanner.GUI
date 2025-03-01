@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace TaskPlanner.Domain.Models
 {
     public class Project
     {
+        [JsonConstructor]
         private Project(Guid id, string name, string description, DateTime? deadline)
         {
             Id = id;
@@ -17,13 +19,13 @@ namespace TaskPlanner.Domain.Models
             Deadline = deadline;
         }
 
-        public Guid Id { get;}
+        public Guid Id { get;} = Guid.NewGuid();
         public string Name { get; }
         public string Description { get; }
         public DateTime CreatedAt { get; }
         public DateTime? Deadline { get; }
 
-        public static (Project? project, List<string> errors) Create(string name, string description, DateTime? deadline, List<Task>? tasks = null)
+        public static (Project? project, List<string> errors) Create(Guid id, string name, string description, DateTime? deadline, List<Task>? tasks = null)
         {
             var errors = new List<string>();
 
@@ -47,7 +49,7 @@ namespace TaskPlanner.Domain.Models
                 return (null, errors);
             }
 
-            return (new Project(Guid.NewGuid(), name, description, deadline), errors);
+            return (new Project(id, name, description, deadline), errors);
         }
     }
 }

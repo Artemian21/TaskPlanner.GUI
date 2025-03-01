@@ -33,7 +33,7 @@ namespace TaskPlanner.DataAccess.Repositories
             await context.Projects.AddAsync(projectEntity);
             await context.SaveChangesAsync();
 
-            return Project.Create(projectEntity.Name, projectEntity.Description, projectEntity.Deadline).project;
+            return Project.Create(projectEntity.Id, projectEntity.Name, projectEntity.Description, projectEntity.Deadline).project;
         }
 
         public async Task<bool> DeleteAsync(Guid id)
@@ -46,7 +46,7 @@ namespace TaskPlanner.DataAccess.Repositories
         {
             var projectEntities = await context.Projects.AsNoTracking().ToListAsync();
 
-            var projects = projectEntities.Select(p => Project.Create(p.Name, p.Description, p.Deadline).project)
+            var projects = projectEntities.Select(p => Project.Create(p.Id, p.Name, p.Description, p.Deadline).project)
                 .Where(project => project != null)
                 .ToList();
 
@@ -72,7 +72,7 @@ namespace TaskPlanner.DataAccess.Repositories
                 t.ProjectId
                 )).ToList();
 
-            return Project.Create(projectEntity.Name, projectEntity.Description, projectEntity.Deadline, taskModels).project;
+            return Project.Create(projectEntity.Id, projectEntity.Name, projectEntity.Description, projectEntity.Deadline, taskModels).project;
         }
 
         public async Task<Project> UpdateAsync(Guid id, string name, string decription, DateTime? deadline)
@@ -91,7 +91,7 @@ namespace TaskPlanner.DataAccess.Repositories
                 return null;
             }
 
-            return Project.Create(updatedProject.Name, updatedProject.Description, updatedProject.Deadline).project;
+            return Project.Create(updatedProject.Id, updatedProject.Name, updatedProject.Description, updatedProject.Deadline).project;
         }
     }
 }
