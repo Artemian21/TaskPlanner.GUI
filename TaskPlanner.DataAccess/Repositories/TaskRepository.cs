@@ -35,7 +35,7 @@ namespace TaskPlanner.DataAccess.Repositories
             await context.Tasks.AddAsync(taskEntity);
             await context.SaveChangesAsync();
 
-            return Domain.Models.Task.Create(taskEntity.Id, taskEntity.Title, taskEntity.Description, taskEntity.Deadline, taskEntity.Status, taskEntity.Priority, taskEntity.ProjectId).task;
+            return Domain.Models.Task.Create(taskEntity.Title, taskEntity.Description, taskEntity.Deadline, taskEntity.Status, taskEntity.Priority, taskEntity.ProjectId).task;
         }
 
         public async Task<bool> DeleteAsync(Guid id)
@@ -48,7 +48,7 @@ namespace TaskPlanner.DataAccess.Repositories
         {
             var taskEntities = await context.Tasks.AsNoTracking().ToListAsync();
 
-            var tasks = taskEntities.Select(t => Domain.Models.Task.Create(t.Id, t.Title, t.Description, t.Deadline, t.Status, t.Priority, t.ProjectId).task)
+            var tasks = taskEntities.Select(t => Domain.Models.Task.Create(t.Title, t.Description, t.Deadline, t.Status, t.Priority, t.ProjectId).task)
                 .Where(task => task != null)
                 .ToList();
 
@@ -64,7 +64,7 @@ namespace TaskPlanner.DataAccess.Repositories
                 return null;
             }
 
-            return Domain.Models.Task.Create(taskEntity.Id, taskEntity.Title, taskEntity.Description, taskEntity.Deadline, taskEntity.Status, taskEntity.Priority, taskEntity.ProjectId).task;
+            return Domain.Models.Task.Create(taskEntity.Title, taskEntity.Description, taskEntity.Deadline, taskEntity.Status, taskEntity.Priority, taskEntity.ProjectId).task;
         }
 
         public async Task<Domain.Models.Task> UpdateAsync(Guid id, string title, string description, DateTime deadline, Domain.Enums.TaskStatus status, PriorityStatus priority)
@@ -82,7 +82,7 @@ namespace TaskPlanner.DataAccess.Repositories
             {
                 return null;
             }
-            return Domain.Models.Task.Create(updatedTask.Id, updatedTask.Title, updatedTask.Description, updatedTask.Deadline, updatedTask.Status, updatedTask.Priority, updatedTask.ProjectId).task;
+            return Domain.Models.Task.Create(updatedTask.Title, updatedTask.Description, updatedTask.Deadline, updatedTask.Status, updatedTask.Priority, updatedTask.ProjectId).task;
         }
     }
 }

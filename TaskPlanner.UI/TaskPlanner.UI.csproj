@@ -12,9 +12,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.3.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TaskPlanner.BusinessLogic\TaskPlanner.BusinessLogic.csproj" />
     <ProjectReference Include="..\TaskPlanner.DataAccess\TaskPlanner.DataAccess.csproj" />
   </ItemGroup>
 

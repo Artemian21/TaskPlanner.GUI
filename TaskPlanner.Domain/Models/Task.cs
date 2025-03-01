@@ -9,7 +9,7 @@ namespace TaskPlanner.Domain.Models
 {
     public class Task
     {
-        private Task(Guid id, string title, string description, DateTime? deadline, Enums.TaskStatus status, PriorityStatus priority, Guid projectId)
+        public Task(Guid id, string title, string description, DateTime? deadline, Enums.TaskStatus status, PriorityStatus priority, Guid projectId)
         {
             Id = id;
             Title = title;
@@ -30,7 +30,7 @@ namespace TaskPlanner.Domain.Models
         public PriorityStatus Priority { get; } = PriorityStatus.Low;
         public Guid ProjectId { get; }
 
-        public static (Task? task, List<string> errors) Create(Guid id, string title, string description, DateTime? deadline, Enums.TaskStatus taskStatus, PriorityStatus priorityStatus, Guid projectId)
+        public static (Task? task, List<string> errors) Create(string title, string description, DateTime? deadline, Enums.TaskStatus taskStatus, PriorityStatus priorityStatus, Guid projectId)
         {
             var errors = new List<string>();
 
@@ -54,7 +54,7 @@ namespace TaskPlanner.Domain.Models
                 return (null, errors);
             }
 
-            return (new Task(id, title, description, deadline, taskStatus, priorityStatus, projectId), errors);
+            return (new Task(Guid.NewGuid(), title, description, deadline, taskStatus, priorityStatus, projectId), errors);
         }
     }
 }

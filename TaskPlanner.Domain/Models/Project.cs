@@ -23,7 +23,7 @@ namespace TaskPlanner.Domain.Models
         public DateTime CreatedAt { get; }
         public DateTime? Deadline { get; }
 
-        public static (Project? project, List<string> errors) Create(Guid id, string name, string description, DateTime? deadline)
+        public static (Project? project, List<string> errors) Create(string name, string description, DateTime? deadline, List<Task>? tasks = null)
         {
             var errors = new List<string>();
 
@@ -47,7 +47,7 @@ namespace TaskPlanner.Domain.Models
                 return (null, errors);
             }
 
-            return (new Project(id, name, description, deadline), errors);
+            return (new Project(Guid.NewGuid(), name, description, deadline), errors);
         }
     }
 }

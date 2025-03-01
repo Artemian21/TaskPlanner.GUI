@@ -14,6 +14,5 @@ namespace TaskPlanner.DataAccess.Entities
         public DateTime CreatedAt { get; set; }
         public DateTime? Deadline { get; set; }
         public List<TaskEntity> Tasks { get; set; }
-
     }
 }

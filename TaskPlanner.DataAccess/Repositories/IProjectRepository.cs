@@ -8,6 +8,6 @@ namespace TaskPlanner.DataAccess.Repositories
         Task<bool> DeleteAsync(Guid id);
         Task<IEnumerable<Project>> GetAllAsync();
         Task<Project> GetByIdAsync(Guid id);
-        Task<Project> UpdateAsync(Guid id, string name, string decription, DateTime? deadline);
+        Task<Project> UpdateAsync(Guid id, string name, string decription, DateTime deadline);
     }
 }
