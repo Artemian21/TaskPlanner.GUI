@@ -1,6 +1,6 @@
 ﻿using TaskPlanner.Domain.Enums;
 
-namespace TaskPlanner.DataAccess.Repositories
+namespace TaskPlanner.Domain.Abstraction
 {
     public interface ITaskRepository
     {

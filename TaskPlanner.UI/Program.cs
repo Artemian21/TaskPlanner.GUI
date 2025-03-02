@@ -3,6 +3,7 @@ using Microsoft.OpenApi.Models;
 using TaskPlanner.BusinessLogic.Services;
 using TaskPlanner.DataAccess;
 using TaskPlanner.DataAccess.Repositories;
+using TaskPlanner.Domain.Abstraction;
 
 var builder = WebApplication.CreateBuilder(args);
 

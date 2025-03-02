@@ -1,6 +1,6 @@
 ﻿using TaskPlanner.Domain.Enums;
 
-namespace TaskPlanner.BusinessLogic.Services
+namespace TaskPlanner.Domain.Abstraction
 {
     public interface ITaskService
     {

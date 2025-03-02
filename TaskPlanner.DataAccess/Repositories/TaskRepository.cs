@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaskPlanner.DataAccess.Entities;
+using TaskPlanner.Domain.Abstraction;
 using TaskPlanner.Domain.Enums;
 
 namespace TaskPlanner.DataAccess.Repositories

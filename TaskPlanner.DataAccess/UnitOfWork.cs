@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using TaskPlanner.DataAccess.Entities;
 using TaskPlanner.DataAccess.Repositories;
+using TaskPlanner.Domain.Abstraction;
 
 namespace TaskPlanner.DataAccess
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IDisposable, IUnitOfWork
     {
         private TaskPlannerDBContext context;
         private IProjectRepository projectRepository;

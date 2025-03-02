@@ -1,6 +1,6 @@
 ﻿using TaskPlanner.Domain.Models;
 
-namespace TaskPlanner.BusinessLogic.Services
+namespace TaskPlanner.Domain.Abstraction
 {
     public interface IProjectService
     {

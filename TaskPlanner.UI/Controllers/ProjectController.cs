@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TaskPlanner.DataAccess;
 using TaskPlanner.DataAccess.Repositories;
+using TaskPlanner.Domain.Abstraction;
 using TaskPlanner.Domain.Models;
 
 namespace TaskPlanner.UI.Controllers
@@ -8,11 +10,11 @@ namespace TaskPlanner.UI.Controllers
     [ApiController]
     public class ProjectController : ControllerBase
     {
-        private readonly IProjectRepository _projectRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ProjectController(IProjectRepository projectRepository)
+        public ProjectController(IUnitOfWork unitOfWork)
         {
-            this._projectRepository = projectRepository;
+            this._unitOfWork = unitOfWork;
         }
 
         //public IActionResult Index()
@@ -23,14 +25,14 @@ namespace TaskPlanner.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllProjects()
         {
-            var projects = await _projectRepository.GetAllAsync();
+            var projects = await _unitOfWork.ProjectRepository.GetAllAsync();
             return Ok(projects);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProjectById(Guid id)
         {
-            var project = await _projectRepository.GetByIdAsync(id);
+            var project = await _unitOfWork.ProjectRepository.GetByIdAsync(id);
             if (project == null)
             {
                 return NotFound();
@@ -46,14 +48,14 @@ namespace TaskPlanner.UI.Controllers
                 return BadRequest("Invalid project data");
             }
 
-            var addedProject = await _projectRepository.AddAsync(project);
+            var addedProject = await _unitOfWork.ProjectRepository.AddAsync(project);
             return CreatedAtAction(nameof(GetProjectById), new { id = addedProject.Id }, addedProject);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProject(Guid id)
         {
-            var isDeleted = await _projectRepository.DeleteAsync(id);
+            var isDeleted = await _unitOfWork.ProjectRepository.DeleteAsync(id);
             if (!isDeleted)
             {
                 return NotFound();
@@ -69,7 +71,7 @@ namespace TaskPlanner.UI.Controllers
                 return BadRequest("Invalid project data");
             }
 
-            var updatedProject = await _projectRepository.UpdateAsync(id, project.Name, project.Description, project.Deadline);
+            var updatedProject = await _unitOfWork.ProjectRepository.UpdateAsync(id, project.Name, project.Description, project.Deadline);
             if (updatedProject == null)
             {
                 return NotFound();
