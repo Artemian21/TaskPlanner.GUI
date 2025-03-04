@@ -1,0 +1,64 @@
+﻿@using TaskPlanner.Domain.Models
+@using TaskPlanner.Domain.Enums
+@model TaskPlanner.Domain.Models.Task
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="~/css/form.css">
+	<title>Edit Task</title>
+</head>
+<body>
+	<div class="container-add-form">
+		<h1>Edit Task</h1>
+		<form method="post">
+			<!-- Hidden field to send the ID -->
+			<input type="hidden" name="Id" value="@Model.Id" />
+			<input type="hidden" name="ProjectId" value="@Model.ProjectId" />
+
+			<!-- Title -->
+			<div class="form-group">
+				<label for="Title">Task Title</label>
+				<input type="text" id="Title" name="Title" class="form-control" value="@Model.Title" required />
+			</div>
+
+			<!-- Description -->
+			<div class="form-group">
+				<label for="Description">Description</label>
+				<textarea id="Description" name="Description" class="form-control" required>@Model.Description</textarea>
+			</div>
+
+			<!-- Deadline -->
+			<div class="form-group">
+				<label for="Deadline">Deadline</label>
+				<input type="datetime-local" id="Deadline" name="Deadline" class="form-control" value="@Model.Deadline?.ToString("yyyy-MM-ddTHH:mm")" />
+			</div>
+
+			<div class="form-group">
+				<label for="Status">Status</label>
+				<select id="Status" name="Status" class="form-control">
+					<option value="Not_started" selected='@(Model.Status.ToString() == TaskPlanner.Domain.Enums.TaskStatus.Not_started.ToString() ? "selected" : null)'>Not_started</option>
+					<option value="In_progress" selected='@(Model.Status.ToString() == TaskPlanner.Domain.Enums.TaskStatus.In_progress.ToString() ? "selected" : null)'>In_progress</option>
+					<option value="Completed" selected='@(Model.Status.ToString() == TaskPlanner.Domain.Enums.TaskStatus.Completed.ToString() ? "selected" : null)'>Completed</option>
+				</select>
+			</div>
+
+			<!-- Priority -->
+			<div class="form-group">
+				<label for="Priority">Priority</label>
+				<select id="Priority" name="Priority" class="form-control">
+					<option value="Low" selected='@(Model.Priority.ToString() == "Low" ? "selected" : null)'>Low</option>
+					<option value="Medium" selected='@(Model.Priority.ToString() == "Medium" ? "selected" : null)'>Medium</option>
+					<option value="High" selected='@(Model.Priority.ToString() == "High" ? "selected" : null)'>High</option>
+				</select>
+			</div>
+
+			<!-- Submit Button -->
+			<button type="submit" class="btn">Update Task</button>
+			<a href="@Url.Action("Details", "Project", new { id = @Model.ProjectId })">Cancel</a>
+		</form>
+	</div>
+</body>
+</html>

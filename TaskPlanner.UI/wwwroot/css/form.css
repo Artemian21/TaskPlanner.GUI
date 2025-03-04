@@ -1,0 +1,105 @@
+﻿/* Загальні стилі */
+body {
+    background-color: #0d0d0d;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container-add-form {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
+    width: 100%;
+    max-width: 500px;
+}
+
+h1 {
+    text-align: center;
+    color: #00ffff;
+}
+
+/* Стилі для групи форми */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #b7b9bd;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #00ffff;
+    background-color: #2b2b2b;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+    .form-control:focus {
+        outline: none;
+        border-color: #ff00ff;
+        box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+    }
+
+/* Стилі для текстової області */
+textarea.form-control {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Стилі для випадаючих списків */
+select.form-control {
+    cursor: pointer;
+}
+
+.form-row {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px; /* Відстань між елементами */
+    align-items: center; /* Вирівнювання по вертикалі */
+    margin-bottom: 20px;
+}
+
+    .form-row label {
+        margin-right: 2px; /* Невеликий відступ між label і select */
+        font-weight: bold;
+    }
+
+/* Кнопки */
+.btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #00ffff, #ff00ff);
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    .btn:hover {
+        background: linear-gradient(90deg, #ff00ff, #00ffff);
+        transform: scale(1.05);
+    }
+
+/* Посилання */
+a {
+    display: block;
+    text-align: center;
+    color: #00ffff;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+    a:hover {
+        color: #ff00ff;
+    }

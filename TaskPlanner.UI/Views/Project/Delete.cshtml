@@ -1,0 +1,25 @@
+﻿@using TaskPlanner.Domain.Models
+@model TaskPlanner.Domain.Models.Project
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="~/css/delete.css">
+	<title>Delete Project</title>
+</head>
+<body>
+	<div class="delete-container">
+		<h1>Delete Project</h1>
+		<p>Are you sure you want to delete the project <strong>@Model.Name</strong>?</p>
+		<p class="warning">This action cannot be undone.</p>
+
+		<form id="deleteForm" asp-action="Delete" method="post">
+			<input type="hidden" name="id" value="@Model.Id" />
+			<button type="submit" class="btn btn-danger">Delete</button>
+			<a href="@Url.Action("Index", "Project")">Cancel</a>
+		</form>
+	</div>
+</body>
+</html>

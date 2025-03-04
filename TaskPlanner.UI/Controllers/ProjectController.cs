@@ -6,8 +6,8 @@ using TaskPlanner.Domain.Models;
 
 namespace TaskPlanner.UI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    //[Route("api/[controller]")]
+    //[ApiController]
     public class ProjectController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -33,7 +33,31 @@ namespace TaskPlanner.UI.Controllers
             return View(project);
         }
 
+        public IActionResult Create()
+        {
+            return View();
+        }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var project = await _unitOfWork.ProjectRepository.GetByIdAsync(id);
+            if (project == null)
+            {
+                return NotFound();
+            }
+            return View(project);
+        }
+
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var project = await _unitOfWork.ProjectRepository.GetByIdAsync(id);
+            if (project == null)
+            {
+                return NotFound();
+            }
+            return View(project);
+        }
 
         //[HttpGet]
         //public async Task<IActionResult> GetAllProjects()
@@ -53,6 +77,24 @@ namespace TaskPlanner.UI.Controllers
         //    return Ok(project);
         //}
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Project project)
+        {
+            var (newProject, errors) = Project.Create(project.Id, project.Name, project.Description, project.Deadline, project.Tasks);
+
+            // Якщо є помилки, повертаємо їх на форму
+            if (errors.Any())
+            {
+                ModelState.AddModelError(string.Empty, string.Join(", ", errors));
+                return View(project);  // Повертаємо форму з помилками
+            }
+
+            // Якщо проект створений без помилок, зберігаємо його в базі
+            await _unitOfWork.ProjectRepository.AddAsync(newProject);
+            return RedirectToAction(nameof(Index));
+        }
+
         //[HttpPost]
         //public async Task<IActionResult> AddProject([FromBody] Project project)
         //{
@@ -65,6 +107,18 @@ namespace TaskPlanner.UI.Controllers
         //    return CreatedAtAction(nameof(GetProjectById), new { id = addedProject.Id }, addedProject);
         //}
 
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        {
+            var isDeleted = await _unitOfWork.ProjectRepository.DeleteAsync(id);
+            if (!isDeleted)
+            {
+                return NotFound();
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
         //[HttpDelete("{id}")]
         //public async Task<IActionResult> DeleteProject(Guid id)
         //{
@@ -75,6 +129,24 @@ namespace TaskPlanner.UI.Controllers
         //    }
         //    return NoContent();
         //}
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Guid id, Project project)
+        {
+
+            if (id != project.Id)
+            {
+                return BadRequest();
+            }
+
+            if (ModelState.IsValid)
+            {
+                await _unitOfWork.ProjectRepository.UpdateAsync(id, project.Name, project.Description, project.Deadline);
+                return RedirectToAction(nameof(Details), new { id = project.Id });
+            }
+            return View(project);
+        }
 
         //[HttpPut("{id}")]
         //public async Task<IActionResult> UpdateProject(Guid id, [FromBody] Project project)

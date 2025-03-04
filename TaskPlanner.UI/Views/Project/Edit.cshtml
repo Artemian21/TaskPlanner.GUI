@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/form.css">
+    <title>Edit Project</title>
+</head>
+<body>
+    <div class="container-add-form">
+        <h1>Edit Project</h1>
+        <form method="post">
+            <!-- Hidden field to send the ID -->
+            <input type="hidden" name="Id" value="@Model.Id" />
+
+            <!-- Name -->
+            <div class="form-group">
+                <label for="Name">Project Name</label>
+                <input type="text" id="Name" name="Name" class="form-control" value="@Model.Name" required />
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+                <label for="Description">Description</label>
+                <textarea id="Description" name="Description" class="form-control" required>@Model.Description</textarea>
+            </div>
+
+            <!-- Deadline -->
+            <div class="form-group">
+                <label for="Deadline">Deadline</label>
+                <input type="datetime-local" id="Deadline" name="Deadline" class="form-control" value="@Model.Deadline?.ToString("yyyy-MM-ddTHH:mm")" />
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn">Update Project</button>
+            <a href="@Url.Action("Details", "Project", new { id = Model.Id })">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

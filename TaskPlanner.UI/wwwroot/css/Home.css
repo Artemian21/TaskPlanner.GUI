@@ -1,0 +1,94 @@
+﻿/* Загальні стилі */
+body {
+    background-color: #0d0d0d;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+    text-align: center;
+}
+
+/* Заголовок */
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #ea14f5;
+    text-shadow: 0 0 10px #ea14f5, 0 0 20px #ea14f5;
+}
+
+/* Кнопка створення проекту */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    margin-bottom: 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(90deg, #ff00ff, #00ffff);
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 10px #ff00ff;
+}
+
+    .btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px #ff00ff, 0 0 30px #00ffff;
+    }
+
+/* Грід карток */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Карта проекту */
+.card {
+    background: rgba(30, 30, 30, 0.9);
+    padding: 20px;
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+    /* Неоновий ефект при наведенні */
+    .card:hover {
+        box-shadow: 0 0 20px #0ff, 0 0 30px #ff00ff;
+        transform: translateY(-5px);
+    }
+
+/* Контент картки */
+.card-body {
+    text-align: left;
+}
+
+/* Текстові стилі */
+.project-name {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #0ff;
+    text-shadow: 0 0 10px #0ff;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #ccc;
+    margin: 5px 0;
+}
+
+.card-text-createdTime {
+    font-size: 0.8rem;
+    color: #aaa;
+}

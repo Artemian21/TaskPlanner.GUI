@@ -9,21 +9,25 @@ namespace TaskPlanner.Domain.Models
 {
     public class Project
     {
+        public Project() { }
+
         [JsonConstructor]
-        private Project(Guid id, string name, string description, DateTime? deadline)
+        private Project(Guid id, string name, string description, DateTime? deadline, List<Task> tasks)
         {
             Id = id;
             Name = name;
             Description = description;
             CreatedAt = DateTime.Now;
             Deadline = deadline;
+            Tasks = tasks ?? new List<Task>();
         }
 
-        public Guid Id { get;} = Guid.NewGuid();
-        public string Name { get; }
-        public string Description { get; }
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public string Name { get; set; }
+        public string Description { get; set; }
         public DateTime CreatedAt { get; }
-        public DateTime? Deadline { get; }
+        public DateTime? Deadline { get; set; }
+        public List<Task> Tasks { get; set; } = new List<Task>();
 
         public static (Project? project, List<string> errors) Create(Guid id, string name, string description, DateTime? deadline, List<Task>? tasks = null)
         {
@@ -49,7 +53,7 @@ namespace TaskPlanner.Domain.Models
                 return (null, errors);
             }
 
-            return (new Project(id, name, description, deadline), errors);
+            return (new Project(id, name, description, deadline, tasks), errors);
         }
     }
 }

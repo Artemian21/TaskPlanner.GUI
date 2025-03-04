@@ -1,0 +1,65 @@
+﻿@using TaskPlanner.Domain.Models
+@model TaskPlanner.Domain.Models.Project
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/details.css">
+    <title>@Model.Name - Details</title>
+</head>
+<body>
+    <div class="container">
+        <h1>@Model.Name</h1>
+
+        <!-- Головний блок з деталями проекту -->
+        <div class="project-details">
+            <div class="project-info">
+                <p><strong>Created:</strong> @Model.CreatedAt.ToString("yyyy-MM-dd")</p>
+                <p><strong>Deadline:</strong> @Model.Deadline.ToString()</p>
+                <p><strong>Description:</strong> @Model.Description</p>
+            </div>
+
+            <!-- Блок з кнопками -->
+            <div class="project-actions">
+                <a href="@Url.Action("Edit", "Project", new { id = Model.Id })" class="btn">Update project</a>
+                <a href="@Url.Action("Delete", "Project", new { id = Model.Id })" class="btn btn-danger">Delete project</a>
+            </div>
+        </div>
+
+        <!-- Кнопка додавання завдання -->
+        <div class="add-task">
+            <a href="@Url.Action("Create", "Task", new { projectId = Model.Id })" class="btn btn-add">Add Task</a>
+        </div>
+
+        <!-- Блок з завданнями -->
+        <div class="tasks-container">
+            <h2>Project Tasks</h2>
+            @if (Model.Tasks != null && Model.Tasks.Any())
+            {
+                <ul class="task-list">
+                    @foreach (var task in Model.Tasks)
+                    {
+                        <li class="task-item">
+                            <p><strong>@task.Title</strong></p>
+                            <p>@task.Description</p>
+                            <p><strong>Deadline:</strong> @task.Deadline.ToString()</p>
+                            <p><strong>Status:</strong> @task.Status</p>
+                            <p><strong>Priority:</strong> @task.Priority</p>
+                            <div class="task-actions">
+                                <a href="@Url.Action("Edit", "Task", new { id = task.Id })" class="btn">Update</a>
+                                <a href="@Url.Action("Delete", "Task", new { id = task.Id })" class="btn btn-danger">Delete</a>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No tasks available for this project.</p>
+            }
+        </div>
+    </div>
+</body>
+</html>

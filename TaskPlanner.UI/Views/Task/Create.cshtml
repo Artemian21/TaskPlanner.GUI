@@ -1,0 +1,57 @@
+﻿@using TaskPlanner.Domain.Models
+@model TaskPlanner.Domain.Models.Task
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="~/css/form.css">
+	<title>Add Task</title>
+</head>
+<body>
+	<div class="container-add-form">
+		<h1>Add New Task</h1>
+
+		<form asp-action="Create" method="post">
+			<input type="hidden" name="ProjectId" value="@ViewBag.ProjectId" />
+			<div class="form-group">
+				<label>Title:</label>
+				<input type="text" name="Title" class="form-control" required />
+			</div>
+
+			<div class="form-group">
+				<label>Description:</label>
+				<textarea name="Description" class="form-control" required></textarea>
+			</div>
+
+			<div class="form-group">
+				<label>Deadline:</label>
+				<input type="datetime-local" name="Deadline" class="form-control" />
+			</div>
+
+			<div class="form-group">
+				<div class="form-row">
+					<label for="Status">Status:</label>
+					<select id="Status" name="Status" class="form-control">
+						<option value="0">Not Started</option>
+						<option value="1">In Progress</option>
+						<option value="2">Completed</option>
+					</select>
+
+					<label for="Priority">Priority:</label>
+					<select id="Priority" name="Priority" class="form-control">
+						<option value="0">Low</option>
+						<option value="1">Medium</option>
+						<option value="2">High</option>
+					</select>
+				</div>
+			</div>
+
+			<button type="submit" class="btn">Create Task</button>
+			<a href="@Url.Action("Details", "Project", new { id = ViewBag.ProjectId })">Cancel</a>
+		</form>
+	</div>
+</body>
+</html>
+

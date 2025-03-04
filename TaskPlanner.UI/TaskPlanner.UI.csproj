@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -22,6 +22,10 @@
   <ItemGroup>
     <ProjectReference Include="..\TaskPlanner.BusinessLogic\TaskPlanner.BusinessLogic.csproj" />
     <ProjectReference Include="..\TaskPlanner.DataAccess\TaskPlanner.DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>

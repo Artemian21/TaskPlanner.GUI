@@ -1,0 +1,32 @@
+﻿@using TaskPlanner.Domain.Models
+@model IEnumerable<TaskPlanner.Domain.Models.Project>
+
+<!Doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="~/css/Home.css">
+        <title>Projects</title>
+    </head>
+<body>
+    <div class="container">
+        <h1>Projects</h1>
+        <a href="@Url.Action("Create", "Project")" class="btn btn-primary">Create New Project</a>
+
+        <div class="grid-container">
+            @foreach (var project in Model)
+            {
+                <div class="card" onclick="location.href='@Url.Action("Details", "Project", new { id = project.Id })'">
+                    <div class="card-body">
+                        <p class="card-text-createdTime"><strong>Created:</strong> @project.CreatedAt.ToString("yyyy-MM-dd")</p>
+                        <p class="project-name">@project.Name</p>
+                        <p class="card-text"><strong>Deadline:</strong> @project.Deadline.ToString()</p>
+                        <p class="card-text"><strong>Description:</strong> @project.Description</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

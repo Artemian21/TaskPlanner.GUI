@@ -1,4 +1,5 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
+﻿function handleButtonClick(event) {
+    // Зупиняємо поширення події, щоб картка не сприймала натискання на кнопку
+    event.stopPropagation();
+    alert("Button clicked!");
+}
