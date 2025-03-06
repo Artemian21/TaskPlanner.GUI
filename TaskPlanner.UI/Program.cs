@@ -8,7 +8,6 @@ using TaskPlanner.Domain.Abstraction;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
@@ -19,15 +18,7 @@ builder.Services.AddDbContext<TaskPlannerDBContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("TaskPlannerDBContext"));
 });
-//builder.Services.AddSwaggerGen(options =>
-//{
-//    options.SwaggerDoc("v1", new OpenApiInfo
-//    {
-//        Title = "TaskPlanner API",
-//        Version = "v1",
-//        Description = "API для керування проектами та задачами"
-//    });
-//})
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -56,6 +47,16 @@ app.MapControllerRoute(
     pattern: "{controller=Project}/{action=Index}/{id?}");
 
 app.Run();
+
+//builder.Services.AddSwaggerGen(options =>
+//{
+//    options.SwaggerDoc("v1", new OpenApiInfo
+//    {
+//        Title = "TaskPlanner API",
+//        Version = "v1",
+//        Description = "API для керування проектами та задачами"
+//    });
+//})
 
 //if (app.Environment.IsDevelopment())
 //{

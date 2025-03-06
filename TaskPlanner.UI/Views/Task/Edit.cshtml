@@ -14,23 +14,19 @@
 	<div class="container-add-form">
 		<h1>Edit Task</h1>
 		<form method="post">
-			<!-- Hidden field to send the ID -->
 			<input type="hidden" name="Id" value="@Model.Id" />
 			<input type="hidden" name="ProjectId" value="@Model.ProjectId" />
 
-			<!-- Title -->
 			<div class="form-group">
 				<label for="Title">Task Title</label>
 				<input type="text" id="Title" name="Title" class="form-control" value="@Model.Title" required />
 			</div>
 
-			<!-- Description -->
 			<div class="form-group">
 				<label for="Description">Description</label>
 				<textarea id="Description" name="Description" class="form-control" required>@Model.Description</textarea>
 			</div>
 
-			<!-- Deadline -->
 			<div class="form-group">
 				<label for="Deadline">Deadline</label>
 				<input type="datetime-local" id="Deadline" name="Deadline" class="form-control" value="@Model.Deadline?.ToString("yyyy-MM-ddTHH:mm")" />
@@ -45,7 +41,6 @@
 				</select>
 			</div>
 
-			<!-- Priority -->
 			<div class="form-group">
 				<label for="Priority">Priority</label>
 				<select id="Priority" name="Priority" class="form-control">
@@ -55,7 +50,6 @@
 				</select>
 			</div>
 
-			<!-- Submit Button -->
 			<button type="submit" class="btn">Update Task</button>
 			<a href="@Url.Action("Details", "Project", new { id = @Model.ProjectId })">Cancel</a>
 		</form>

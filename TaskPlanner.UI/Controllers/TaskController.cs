@@ -35,42 +35,12 @@ namespace TaskPlanner.UI.Controllers
             return View(task);
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetAllTask()
-        //{
-        //    var tasks = await _unitOfWork.TaskRepository.GetAllAsync();
-        //    return Ok(tasks);
-        //}
-
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetTaskById(Guid id)
-        //{
-        //    var task = await _unitOfWork.TaskRepository.GetByIdAsync(id);
-        //    if (task == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(task);
-        //}
-
         [HttpGet("Create")]
         public IActionResult Create(Guid projectId)
         {
             ViewBag.ProjectId = projectId;
             return View();
         }
-
-        //[HttpPost]
-        //public async Task<IActionResult> AddTask([FromBody] Domain.Models.Task task)
-        //{
-        //    if (task == null)
-        //    {
-        //        return BadRequest("Invalid task data");
-        //    }
-
-        //    var addedTask = await _unitOfWork.TaskRepository.AddAsync(task);
-        //    return CreatedAtAction(nameof(GetTaskById), new { id = addedTask.Id }, addedTask);
-        //}
 
         [HttpPost("Create")]
         [ValidateAntiForgeryToken]
@@ -143,17 +113,6 @@ namespace TaskPlanner.UI.Controllers
             return RedirectToAction("Details", "Project", new { id = task.ProjectId });
         }
 
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteTask(Guid id)
-        //{
-        //    var isDeleted = await _unitOfWork.TaskRepository.DeleteAsync(id);
-        //    if (!isDeleted)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return NoContent();
-        //}
-
         public async Task<IActionResult> Edit(Guid id)
         {
             var task = await _unitOfWork.TaskRepository.GetByIdAsync(id);
@@ -196,6 +155,46 @@ namespace TaskPlanner.UI.Controllers
 			return RedirectToAction("Details", "Project", new { id = task.ProjectId });
         }
 
+        //[HttpPost]
+        //public async Task<IActionResult> AddTask([FromBody] Domain.Models.Task task)
+        //{
+        //    if (task == null)
+        //    {
+        //        return BadRequest("Invalid task data");
+        //    }
+
+        //    var addedTask = await _unitOfWork.TaskRepository.AddAsync(task);
+        //    return CreatedAtAction(nameof(GetTaskById), new { id = addedTask.Id }, addedTask);
+        //}
+
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteTask(Guid id)
+        //{
+        //    var isDeleted = await _unitOfWork.TaskRepository.DeleteAsync(id);
+        //    if (!isDeleted)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return NoContent();
+        //}
+
+        //[HttpGet]
+        //public async Task<IActionResult> GetAllTask()
+        //{
+        //    var tasks = await _unitOfWork.TaskRepository.GetAllAsync();
+        //    return Ok(tasks);
+        //}
+
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetTaskById(Guid id)
+        //{
+        //    var task = await _unitOfWork.TaskRepository.GetByIdAsync(id);
+        //    if (task == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(task);
+        //}
 
         //[HttpPut("{id}")]
         //public async Task<IActionResult> UpdateTask(Guid id, [FromBody] Domain.Models.Task task)

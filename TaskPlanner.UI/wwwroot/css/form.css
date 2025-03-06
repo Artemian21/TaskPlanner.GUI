@@ -1,5 +1,4 @@
-﻿/* Загальні стилі */
-body {
+﻿body {
     background-color: #0d0d0d;
     color: #ffffff;
     font-family: 'Poppins', sans-serif;
@@ -21,7 +20,6 @@ h1 {
     color: #00ffff;
 }
 
-/* Стилі для групи форми */
 .form-group {
     margin-bottom: 20px;
 }
@@ -49,13 +47,11 @@ label {
         box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
     }
 
-/* Стилі для текстової області */
 textarea.form-control {
     resize: vertical;
     min-height: 100px;
 }
 
-/* Стилі для випадаючих списків */
 select.form-control {
     cursor: pointer;
 }
@@ -63,17 +59,16 @@ select.form-control {
 .form-row {
     margin-top: 20px;
     display: flex;
-    gap: 20px; /* Відстань між елементами */
-    align-items: center; /* Вирівнювання по вертикалі */
+    gap: 20px;
+    align-items: center;
     margin-bottom: 20px;
 }
 
     .form-row label {
-        margin-right: 2px; /* Невеликий відступ між label і select */
+        margin-right: 2px;
         font-weight: bold;
     }
 
-/* Кнопки */
 .btn {
     width: 100%;
     padding: 10px;
@@ -91,7 +86,6 @@ select.form-control {
         transform: scale(1.05);
     }
 
-/* Посилання */
 a {
     display: block;
     text-align: center;

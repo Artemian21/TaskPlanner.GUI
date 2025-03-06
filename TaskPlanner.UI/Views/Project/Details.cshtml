@@ -13,7 +13,6 @@
     <div class="container">
         <h1>@Model.Name</h1>
 
-        <!-- Головний блок з деталями проекту -->
         <div class="project-details">
             <div class="project-info">
                 <p><strong>Created:</strong> @Model.CreatedAt.ToString("yyyy-MM-dd")</p>
@@ -21,19 +20,16 @@
                 <p><strong>Description:</strong> @Model.Description</p>
             </div>
 
-            <!-- Блок з кнопками -->
             <div class="project-actions">
                 <a href="@Url.Action("Edit", "Project", new { id = Model.Id })" class="btn">Update project</a>
                 <a href="@Url.Action("Delete", "Project", new { id = Model.Id })" class="btn btn-danger">Delete project</a>
             </div>
         </div>
 
-        <!-- Кнопка додавання завдання -->
         <div class="add-task">
             <a href="@Url.Action("Create", "Task", new { projectId = Model.Id })" class="btn btn-add">Add Task</a>
         </div>
 
-        <!-- Блок з завданнями -->
         <div class="tasks-container">
             <h2>Project Tasks</h2>
             @if (Model.Tasks != null && Model.Tasks.Any())

@@ -10,25 +10,21 @@
     <div class="container-add-form">
         <h1>Create a New Project</h1>
         <form method="post">
-            <!-- Name -->
             <div class="form-group">
                 <label for="Name">Project Name</label>
                 <input type="text" id="Name" name="Name" class="form-control" required />
             </div>
 
-            <!-- Description -->
             <div class="form-group">
                 <label for="Description">Description</label>
                 <textarea id="Description" name="Description" class="form-control" required></textarea>
             </div>
 
-            <!-- Deadline -->
             <div class="form-group">
                 <label for="Deadline">Deadline</label>
                 <input type="datetime-local" id="Deadline" name="Deadline" class="form-control" />
             </div>
 
-            <!-- Submit Button -->
             <button type="submit" class="btn">Create Project</button>
             <a href="@Url.Action("Index", "Project")">Cancel</a>
         </form>

@@ -59,53 +59,22 @@ namespace TaskPlanner.UI.Controllers
             return View(project);
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetAllProjects()
-        //{
-        //    var projects = await _unitOfWork.ProjectRepository.GetAllAsync();
-        //    return Ok(projects);
-        //}
-
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetProjectById(Guid id)
-        //{
-        //    var project = await _unitOfWork.ProjectRepository.GetByIdAsync(id);
-        //    if (project == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(project);
-        //}
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Project project)
         {
             var (newProject, errors) = Project.Create(project.Id, project.Name, project.Description, project.Deadline, project.Tasks);
 
-            // Якщо є помилки, повертаємо їх на форму
             if (errors.Any())
             {
                 ModelState.AddModelError(string.Empty, string.Join(", ", errors));
-                return View(project);  // Повертаємо форму з помилками
+                return View(project);
             }
 
             // Якщо проект створений без помилок, зберігаємо його в базі
             await _unitOfWork.ProjectRepository.AddAsync(newProject);
             return RedirectToAction(nameof(Index));
         }
-
-        //[HttpPost]
-        //public async Task<IActionResult> AddProject([FromBody] Project project)
-        //{
-        //    if (project == null)
-        //    {
-        //        return BadRequest("Invalid project data");
-        //    }
-
-        //    var addedProject = await _unitOfWork.ProjectRepository.AddAsync(project);
-        //    return CreatedAtAction(nameof(GetProjectById), new { id = addedProject.Id }, addedProject);
-        //}
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -118,17 +87,6 @@ namespace TaskPlanner.UI.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteProject(Guid id)
-        //{
-        //    var isDeleted = await _unitOfWork.ProjectRepository.DeleteAsync(id);
-        //    if (!isDeleted)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return NoContent();
-        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -147,6 +105,46 @@ namespace TaskPlanner.UI.Controllers
             }
             return View(project);
         }
+        //[HttpGet]
+        //public async Task<IActionResult> GetAllProjects()
+        //{
+        //    var projects = await _unitOfWork.ProjectRepository.GetAllAsync();
+        //    return Ok(projects);
+        //}
+
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetProjectById(Guid id)
+        //{
+        //    var project = await _unitOfWork.ProjectRepository.GetByIdAsync(id);
+        //    if (project == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(project);
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> AddProject([FromBody] Project project)
+        //{
+        //    if (project == null)
+        //    {
+        //        return BadRequest("Invalid project data");
+        //    }
+
+        //    var addedProject = await _unitOfWork.ProjectRepository.AddAsync(project);
+        //    return CreatedAtAction(nameof(GetProjectById), new { id = addedProject.Id }, addedProject);
+        //}
+
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteProject(Guid id)
+        //{
+        //    var isDeleted = await _unitOfWork.ProjectRepository.DeleteAsync(id);
+        //    if (!isDeleted)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return NoContent();
+        //}
 
         //[HttpPut("{id}")]
         //public async Task<IActionResult> UpdateProject(Guid id, [FromBody] Project project)
