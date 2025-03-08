@@ -9,7 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskPlanner.DataAccess", ".
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskPlanner.Domain", "..\TaskPlanner.Domain\TaskPlanner.Domain.csproj", "{5E765E34-637B-41A2-9D7F-E49FDB3AABC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskPlanner.BusinessLogic", "..\TaskPlanner.BusinessLogic\TaskPlanner.BusinessLogic.csproj", "{2270774C-0219-403C-B3BE-B809E8239BA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskPlanner.BusinessLogic", "..\TaskPlanner.BusinessLogic\TaskPlanner.BusinessLogic.csproj", "{2270774C-0219-403C-B3BE-B809E8239BA8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4B2F3E13-E4CC-47FF-8DF3-2F2425D48EB0} = {4B2F3E13-E4CC-47FF-8DF3-2F2425D48EB0}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

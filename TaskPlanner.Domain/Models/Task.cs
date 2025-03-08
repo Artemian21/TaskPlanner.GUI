@@ -12,7 +12,7 @@ namespace TaskPlanner.Domain.Models
     {
         public Task() { }
 
-        public Task(Guid id, string title, string description, DateTime? deadline, Enums.TaskStatus status, PriorityStatus priority, Guid projectId)
+        private Task(Guid id, string title, string description, DateTime? deadline, Enums.TaskStatus status, PriorityStatus priority, Guid projectId)
         {
             Id = id;
             Title = title;

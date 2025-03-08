@@ -10,22 +10,22 @@ namespace TaskPlanner.UI.Controllers
     //[ApiController]
     public class ProjectController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IProjectService _projectService;
 
-        public ProjectController(IUnitOfWork unitOfWork)
+        public ProjectController(IProjectService projectService)
         {
-            this._unitOfWork = unitOfWork;
+            this._projectService = projectService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var projects = await _unitOfWork.ProjectRepository.GetAllAsync();
+            var projects = await _projectService.GetAllProjects();
             return View(projects);
         }
 
         public async Task<IActionResult> Details(Guid id)
         {
-            var project = await _unitOfWork.ProjectRepository.GetByIdAsync(id);
+            var project = await _projectService.GetProjectById(id);
             if (project == null)
             {
                 return NotFound();
@@ -41,7 +41,7 @@ namespace TaskPlanner.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var project = await _unitOfWork.ProjectRepository.GetByIdAsync(id);
+            var project = await _projectService.GetProjectById(id);
             if (project == null)
             {
                 return NotFound();
@@ -51,7 +51,7 @@ namespace TaskPlanner.UI.Controllers
 
         public async Task<IActionResult> Delete(Guid id)
         {
-            var project = await _unitOfWork.ProjectRepository.GetByIdAsync(id);
+            var project = await _projectService.GetProjectById(id);
             if (project == null)
             {
                 return NotFound();
@@ -71,8 +71,7 @@ namespace TaskPlanner.UI.Controllers
                 return View(project);
             }
 
-            // Якщо проект створений без помилок, зберігаємо його в базі
-            await _unitOfWork.ProjectRepository.AddAsync(newProject);
+            await _projectService.AddProject(newProject);
             return RedirectToAction(nameof(Index));
         }
 
@@ -80,7 +79,7 @@ namespace TaskPlanner.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var isDeleted = await _unitOfWork.ProjectRepository.DeleteAsync(id);
+            var isDeleted = await _projectService.DeleteProject(id);
             if (!isDeleted)
             {
                 return NotFound();
@@ -100,7 +99,7 @@ namespace TaskPlanner.UI.Controllers
 
             if (ModelState.IsValid)
             {
-                await _unitOfWork.ProjectRepository.UpdateAsync(id, project.Name, project.Description, project.Deadline);
+                await _projectService.UpdateProject(id, project.Name, project.Description, project.Deadline);
                 return RedirectToAction(nameof(Details), new { id = project.Id });
             }
             return View(project);

@@ -8,6 +8,6 @@ namespace TaskPlanner.Domain.Abstraction
         Task<bool> DeleteTask(Guid id);
         Task<IEnumerable<Domain.Models.Task>> GetAllTasks();
         Task<Domain.Models.Task> GetTaskById(Guid id);
-        Task<Domain.Models.Task> UpdateTask(Guid id, string title, string description, DateTime deadline, Domain.Enums.TaskStatus status, PriorityStatus priority);
+        Task<Domain.Models.Task> UpdateTask(Guid id, string title, string description, DateTime? deadline, Domain.Enums.TaskStatus status, PriorityStatus priority);
     }
 }

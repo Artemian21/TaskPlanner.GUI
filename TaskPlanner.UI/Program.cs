@@ -1,6 +1,9 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
+using System.Web.Mvc;
 using TaskPlanner.BusinessLogic.Services;
 using TaskPlanner.DataAccess;
 using TaskPlanner.DataAccess.Repositories;
@@ -8,12 +11,14 @@ using TaskPlanner.Domain.Abstraction;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<ITaskRepository, TaskRepository>();
-builder.Services.AddScoped<ITaskService, TaskService>();
-builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
-builder.Services.AddScoped<IProjectService, ProjectService>();
+//builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+//builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+//builder.Services.AddScoped<ITaskService, TaskService>();
+//builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+//builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddDbContext<TaskPlannerDBContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("TaskPlannerDBContext"));
@@ -24,6 +29,15 @@ builder.Services.AddControllers()
     {
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
+
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+{
+    containerBuilder.RegisterType<ProjectService>().As<IProjectService>();
+    containerBuilder.RegisterType<TaskService>().As<ITaskService>();
+    containerBuilder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
+    containerBuilder.RegisterType<TaskRepository>().As<ITaskRepository>();
+    containerBuilder.RegisterType<ProjectRepository>().As<IProjectRepository>();
+});
 
 var app = builder.Build();
 

@@ -12,23 +12,21 @@ namespace TaskPlanner.DataAccess
     public class UnitOfWork : IDisposable, IUnitOfWork
     {
         private TaskPlannerDBContext context;
-        private IProjectRepository projectRepository;
-        private ITaskRepository taskRepository;
+        private IProjectRepository _projectRepository;
+        private ITaskRepository _taskRepository;
 
-        public UnitOfWork(TaskPlannerDBContext context)
+        public UnitOfWork(TaskPlannerDBContext context, IProjectRepository projectRepository, ITaskRepository taskRepository)
         {
             this.context = context;
+            this._projectRepository = projectRepository;
+            this._taskRepository = taskRepository;
         }
 
         public IProjectRepository ProjectRepository
         {
             get
             {
-                if (projectRepository == null)
-                {
-                    projectRepository = new ProjectRepository(context);
-                }
-                return projectRepository;
+                return _projectRepository;
             }
         }
 
@@ -36,11 +34,7 @@ namespace TaskPlanner.DataAccess
         {
             get
             {
-                if (taskRepository == null)
-                {
-                    taskRepository = new TaskRepository(context);
-                }
-                return taskRepository;
+                return _taskRepository;
             }
         }
 

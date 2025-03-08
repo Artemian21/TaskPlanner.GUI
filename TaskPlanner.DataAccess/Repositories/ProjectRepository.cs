@@ -63,15 +63,18 @@ namespace TaskPlanner.DataAccess.Repositories
                 return null;
             }
 
-            var taskModels = projectEntity.Tasks?.Select(t => new Domain.Models.Task(
-                t.Id,
-                t.Title,
-                t.Description,
-                t.Deadline,
-                t.Status,
-                t.Priority,
-                t.ProjectId
-                )).ToList();
+            var taskModels = projectEntity.Tasks?
+        .Select(t => Domain.Models.Task.Create(
+            t.Id,
+            t.Title,
+            t.Description,
+            t.Deadline,
+            t.Status,
+            t.Priority,
+            t.ProjectId
+        ).task)
+        .Where(t => t != null)
+        .ToList();
 
             return Project.Create(projectEntity.Id, projectEntity.Name, projectEntity.Description, projectEntity.Deadline, taskModels).project;
         }
@@ -79,8 +82,7 @@ namespace TaskPlanner.DataAccess.Repositories
         public async Task<Project> UpdateAsync(Guid id, string name, string decription, DateTime? deadline)
         {
             await context.Projects.Where(p => p.Id == id)
-                .ExecuteUpdateAsync(s => s.
-                SetProperty(p => p.Name, p => name)
+                .ExecuteUpdateAsync(s => s.SetProperty(p => p.Name, p => name)
                 .SetProperty(p => p.Description, p => decription)
                 .SetProperty(p => p.Deadline, p => deadline)
                 );

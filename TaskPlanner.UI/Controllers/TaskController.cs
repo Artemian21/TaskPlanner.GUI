@@ -6,27 +6,29 @@ namespace TaskPlanner.UI.Controllers
 {
     public class TaskController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ITaskService _taskService;
+        private readonly IProjectService _projectService;
 
-        public TaskController(IUnitOfWork unitOfWork)
+        public TaskController(ITaskService taskService, IProjectService projectService)
         {
-            if (unitOfWork == null)
+            if (taskService == null)
             {
-                throw new ArgumentNullException(nameof(unitOfWork), "UnitOfWork is null in TaskController!");
+                throw new ArgumentNullException(nameof(taskService), "TaskService is null in TaskController!");
             }
 
-            this._unitOfWork = unitOfWork;
+            this._taskService = taskService;
+            this._projectService = projectService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var tasks = await _unitOfWork.TaskRepository.GetAllAsync();
+            var tasks = await _taskService.GetAllTasks();
             return View(tasks);
         }
 
         public async Task<IActionResult> Details(Guid id)
         {
-            var task = await _unitOfWork.TaskRepository.GetByIdAsync(id);
+            var task = await _taskService.GetTaskById(id);
             if (task == null)
             {
                 return NotFound();
@@ -51,7 +53,7 @@ namespace TaskPlanner.UI.Controllers
                 return View(task);
             }
 
-            var project = await _unitOfWork.ProjectRepository.GetByIdAsync(task.ProjectId);
+            var project = await _projectService.GetProjectById(task.ProjectId);
             if (project == null)
             {
                 ModelState.AddModelError(nameof(task.ProjectId), "Project does not exist.");
@@ -78,13 +80,13 @@ namespace TaskPlanner.UI.Controllers
                 return View(task);
             }
 
-            await _unitOfWork.TaskRepository.AddAsync(newTask);
+            await _taskService.AddTask(newTask);
             return RedirectToAction("Details", "Project", new { id = task.ProjectId });
         }
 
         public async Task<IActionResult> Delete(Guid id)
         {
-            var task = await _unitOfWork.TaskRepository.GetByIdAsync(id);
+            var task = await _taskService.GetTaskById(id);
             if (task == null)
             {
                 return NotFound();
@@ -98,13 +100,13 @@ namespace TaskPlanner.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var task = await _unitOfWork.TaskRepository.GetByIdAsync(id);
+            var task = await _taskService.GetTaskById(id);
             if (task == null)
             {
                 return NotFound();
             }
 
-            var isDeleted = await _unitOfWork.TaskRepository.DeleteAsync(id);
+            var isDeleted = await _taskService.DeleteTask(id);
             if (!isDeleted)
             {
                 return NotFound();
@@ -115,7 +117,7 @@ namespace TaskPlanner.UI.Controllers
 
         public async Task<IActionResult> Edit(Guid id)
         {
-            var task = await _unitOfWork.TaskRepository.GetByIdAsync(id);
+            var task = await _taskService.GetTaskById(id);
             if (task == null)
             {
                 return NotFound();
@@ -133,7 +135,7 @@ namespace TaskPlanner.UI.Controllers
                 return View(task);
             }
 
-			var existingTask = await _unitOfWork.TaskRepository.GetByIdAsync(id);
+			var existingTask = await _taskService.GetTaskById(id);
             if (existingTask == null)
             {
                 return NotFound();
@@ -145,7 +147,7 @@ namespace TaskPlanner.UI.Controllers
             existingTask.Status = task.Status;
             existingTask.Priority = task.Priority;
 
-            var updatedTask = await _unitOfWork.TaskRepository.UpdateAsync(existingTask.Id, existingTask.Title, existingTask.Description, existingTask.Deadline, existingTask.Status, existingTask.Priority);
+            var updatedTask = await _taskService.UpdateTask(existingTask.Id, existingTask.Title, existingTask.Description, existingTask.Deadline, existingTask.Status, existingTask.Priority);
 
             if (updatedTask == null)
             {

@@ -8,6 +8,6 @@ namespace TaskPlanner.Domain.Abstraction
         Task<bool> DeleteProject(Guid id);
         Task<IEnumerable<Project>> GetAllProjects();
         Task<Project> GetProjectById(Guid id);
-        Task<Project> UpdateProject(Guid id, string name, string decription, DateTime deadline);
+        Task<Project> UpdateProject(Guid id, string name, string decription, DateTime? deadline);
     }
 }
