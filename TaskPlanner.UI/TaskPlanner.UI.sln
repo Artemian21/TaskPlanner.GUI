@@ -14,6 +14,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskPlanner.BusinessLogic",
 		{4B2F3E13-E4CC-47FF-8DF3-2F2425D48EB0} = {4B2F3E13-E4CC-47FF-8DF3-2F2425D48EB0}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskPlanner.Tests", "..\TaskPlanner.Tests\TaskPlanner.Tests.csproj", "{BABA1150-174C-4C5A-B321-93218053250A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2270774C-0219-403C-B3BE-B809E8239BA8} = {2270774C-0219-403C-B3BE-B809E8239BA8}
+		{5E765E34-637B-41A2-9D7F-E49FDB3AABC9} = {5E765E34-637B-41A2-9D7F-E49FDB3AABC9}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +42,10 @@ Global
 		{2270774C-0219-403C-B3BE-B809E8239BA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2270774C-0219-403C-B3BE-B809E8239BA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2270774C-0219-403C-B3BE-B809E8239BA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BABA1150-174C-4C5A-B321-93218053250A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BABA1150-174C-4C5A-B321-93218053250A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BABA1150-174C-4C5A-B321-93218053250A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BABA1150-174C-4C5A-B321-93218053250A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
