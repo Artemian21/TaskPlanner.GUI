@@ -6,8 +6,6 @@ using TaskPlanner.Domain.Models;
 
 namespace TaskPlanner.UI.Controllers
 {
-    //[Route("api/[controller]")]
-    //[ApiController]
     public class ProjectController : Controller
     {
         private readonly IProjectService _projectService;
@@ -104,61 +102,5 @@ namespace TaskPlanner.UI.Controllers
             }
             return View(project);
         }
-        //[HttpGet]
-        //public async Task<IActionResult> GetAllProjects()
-        //{
-        //    var projects = await _unitOfWork.ProjectRepository.GetAllAsync();
-        //    return Ok(projects);
-        //}
-
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetProjectById(Guid id)
-        //{
-        //    var project = await _unitOfWork.ProjectRepository.GetByIdAsync(id);
-        //    if (project == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(project);
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> AddProject([FromBody] Project project)
-        //{
-        //    if (project == null)
-        //    {
-        //        return BadRequest("Invalid project data");
-        //    }
-
-        //    var addedProject = await _unitOfWork.ProjectRepository.AddAsync(project);
-        //    return CreatedAtAction(nameof(GetProjectById), new { id = addedProject.Id }, addedProject);
-        //}
-
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteProject(Guid id)
-        //{
-        //    var isDeleted = await _unitOfWork.ProjectRepository.DeleteAsync(id);
-        //    if (!isDeleted)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return NoContent();
-        //}
-
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> UpdateProject(Guid id, [FromBody] Project project)
-        //{
-        //    if (project == null)
-        //    {
-        //        return BadRequest("Invalid project data");
-        //    }
-
-        //    var updatedProject = await _unitOfWork.ProjectRepository.UpdateAsync(id, project.Name, project.Description, project.Deadline);
-        //    if (updatedProject == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(updatedProject);
-        //}
     }
 }
